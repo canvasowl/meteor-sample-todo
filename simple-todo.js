@@ -11,6 +11,7 @@ if (Meteor.isClient) {
   });
   // --------------------------------------------
 
+  // Handle the task form insert
   // --------------------------------------------
   Template.body.events({
     "submit .new-task": function (event) {
@@ -30,5 +31,18 @@ if (Meteor.isClient) {
       return false;
     }
   }); 
+  // -------------------------------------------- 
+
+  // Handle the tasks check
+  // -------------------------------------------- 
+  Template.task.events({
+    "click .toggle-checked": function () {
+      // Set the checked property to the opposite of its current value
+      Tasks.update(this._id, {$set: {checked: ! this.checked}});
+    },
+    "click .delete": function () {
+      Tasks.remove(this._id);
+    }
+  });
   // -------------------------------------------- 
 }
